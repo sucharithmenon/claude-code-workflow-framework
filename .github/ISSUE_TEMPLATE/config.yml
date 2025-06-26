@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/sucharithmenon/claude-code-workflow-framework/blob/main/README.md
+    about: Read the CCWF documentation and guides
+  - name: 🤝 Discussions
+    url: https://github.com/sucharithmenon/claude-code-workflow-framework/discussions
+    about: Ask questions, share ideas, and discuss CCWF with the community
+  - name: 💡 Greg + Code (Original Methodology)
+    url: https://www.youtube.com/@gregcode
+    about: Watch the original AI development workflow videos that inspired CCWF

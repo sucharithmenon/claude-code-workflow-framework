@@ -1,0 +1,17 @@
+# Scratch Pads Directory
+
+This directory is for temporary planning documents and thoughts during issue development.
+
+Each issue should have its own scratchpad file named: `issue-{number}-{brief-description}.md`
+
+Example: `issue-123-user-authentication-plan.md`
+
+## Purpose
+- Document your thinking process for complex issues
+- Link to relevant GitHub issues and PRs  
+- Break down implementation approaches
+- Record decisions and trade-offs considered
+- Store research findings and code snippets
+
+## Cleanup
+Scratch pads can be deleted after the issue is completed and merged, or kept for reference on complex features.

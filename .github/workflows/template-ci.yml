@@ -1,0 +1,324 @@
+# Example CI/CD Pipeline for CCWF Projects
+# 
+# This is a template workflow that you should customize for your tech stack.
+# Uncomment and modify the sections relevant to your project.
+#
+# Tech Stack Examples:
+# - Node.js/Next.js: Uncomment the Node.js sections
+# - Python/Django: Uncomment the Python sections  
+# - Ruby/Rails: Uncomment the Ruby sections
+# - Or adapt for your specific technology stack
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+# Uncomment environment variables as needed for your stack
+env:
+  # Node.js specific
+  # NODE_VERSION: '20'
+  # NPM_CACHE_DIR: ~/.npm
+  
+  # Python specific  
+  # PYTHON_VERSION: '3.11'
+  # PIP_CACHE_DIR: ~/.cache/pip
+  
+  # Ruby specific
+  # RUBY_VERSION: '3.2'
+  # BUNDLE_CACHE_DIR: vendor/bundle
+
+jobs:
+  # =============================================================================
+  # Code Quality & Linting
+  # =============================================================================
+  lint:
+    name: Code Quality & Linting
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Node.js Linting Example (uncomment for Node.js projects)
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ env.NODE_VERSION }}
+    #     cache: 'npm'
+    # 
+    # - name: Install dependencies
+    #   run: npm ci
+    # 
+    # - name: Run ESLint
+    #   run: npm run lint
+    # 
+    # - name: Check TypeScript types
+    #   run: npm run type-check
+    # 
+    # - name: Check formatting with Prettier
+    #   run: npm run format:check
+
+    # Python Linting Example (uncomment for Python projects)
+    # - name: Setup Python
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: ${{ env.PYTHON_VERSION }}
+    #     cache: 'pip'
+    # 
+    # - name: Install dependencies
+    #   run: |
+    #     pip install -r requirements-dev.txt
+    # 
+    # - name: Run Black formatting check
+    #   run: black --check .
+    # 
+    # - name: Run flake8 linting
+    #   run: flake8
+    # 
+    # - name: Run mypy type checking
+    #   run: mypy .
+
+    # Ruby Linting Example (uncomment for Ruby projects)
+    # - name: Setup Ruby
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: ${{ env.RUBY_VERSION }}
+    #     bundler-cache: true
+    # 
+    # - name: Run RuboCop
+    #   run: bundle exec rubocop
+    # 
+    # - name: Run Brakeman security scan
+    #   run: bundle exec brakeman --exit-on-warn
+
+    # Placeholder for custom linting (replace with your stack)
+    - name: Placeholder - Add your linting steps here
+      run: |
+        echo "🔍 Configure linting for your tech stack"
+        echo "Examples: ESLint, RuboCop, flake8, golangci-lint, etc."
+
+  # =============================================================================
+  # Testing
+  # =============================================================================
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    
+    # Uncomment service containers as needed
+    # services:
+    #   postgres:
+    #     image: postgres:15
+    #     env:
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: test_db
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 5432:5432
+    # 
+    #   redis:
+    #     image: redis:7
+    #     options: >-
+    #       --health-cmd "redis-cli ping"
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 6379:6379
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Node.js Testing Example (uncomment for Node.js projects)
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ env.NODE_VERSION }}
+    #     cache: 'npm'
+    # 
+    # - name: Install dependencies
+    #   run: npm ci
+    # 
+    # - name: Run unit tests
+    #   run: npm test
+    # 
+    # - name: Run build
+    #   run: npm run build
+
+    # Python Testing Example (uncomment for Python projects)
+    # - name: Setup Python
+    #   uses: actions/setup-python@v4
+    #   with:
+    #     python-version: ${{ env.PYTHON_VERSION }}
+    #     cache: 'pip'
+    # 
+    # - name: Install dependencies
+    #   run: |
+    #     pip install -r requirements.txt
+    #     pip install -r requirements-dev.txt
+    # 
+    # - name: Run Django system checks
+    #   run: python manage.py check
+    # 
+    # - name: Run migrations check
+    #   run: python manage.py makemigrations --check --dry-run
+    # 
+    # - name: Run test suite
+    #   run: |
+    #     coverage run --source='.' manage.py test
+    #     coverage report --fail-under=80
+
+    # Ruby Testing Example (uncomment for Ruby projects)
+    # - name: Setup Ruby
+    #   uses: ruby/setup-ruby@v1
+    #   with:
+    #     ruby-version: ${{ env.RUBY_VERSION }}
+    #     bundler-cache: true
+    # 
+    # - name: Setup database
+    #   run: |
+    #     bundle exec rails db:create
+    #     bundle exec rails db:migrate
+    #   env:
+    #     RAILS_ENV: test
+    # 
+    # - name: Run RSpec tests
+    #   run: bundle exec rspec
+
+    # Placeholder for custom testing (replace with your stack)
+    - name: Placeholder - Add your testing steps here  
+      run: |
+        echo "🧪 Configure testing for your tech stack"
+        echo "Examples: Jest, pytest, RSpec, Go test, PHPUnit, etc."
+
+  # =============================================================================
+  # End-to-End Testing (Optional)
+  # =============================================================================
+  e2e:
+    name: End-to-End Tests
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Example E2E setup (customize for your stack)
+    # - name: Setup Node.js (for Puppeteer)
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ env.NODE_VERSION }}
+    #     cache: 'npm'
+    # 
+    # - name: Install dependencies
+    #   run: npm ci
+    # 
+    # - name: Start application
+    #   run: |
+    #     npm run build
+    #     npm start &
+    #     npx wait-on http://localhost:3000
+    # 
+    # - name: Run E2E tests
+    #   run: npm run test:e2e
+
+    # Placeholder for E2E testing
+    - name: Placeholder - Add E2E testing here
+      run: |
+        echo "🎭 Configure E2E testing (Puppeteer, Playwright, Cypress, etc.)"
+        echo "This runs on PRs to catch integration issues"
+
+  # =============================================================================
+  # Security Scanning
+  # =============================================================================
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Dependency vulnerability scanning
+    - name: Run dependency vulnerability scan
+      run: |
+        echo "🔒 Add dependency scanning for your stack:"
+        echo "Node.js: npm audit"
+        echo "Python: safety check"  
+        echo "Ruby: bundle audit"
+        echo "Or use GitHub's built-in dependency scanning"
+
+    # Example for Node.js (uncomment as needed)
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ env.NODE_VERSION }}
+    #     cache: 'npm'
+    # 
+    # - name: Install dependencies
+    #   run: npm ci
+    # 
+    # - name: Run security audit
+    #   run: npm audit --audit-level high
+
+  # =============================================================================
+  # Build & Deploy (Example)
+  # =============================================================================
+  build:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Example build steps (customize for your deployment)
+    - name: Placeholder - Add build & deploy steps
+      run: |
+        echo "🚀 Configure build and deployment for your stack"
+        echo "Examples:"
+        echo "- Docker build and push"
+        echo "- Deploy to Heroku, Vercel, AWS, etc."
+        echo "- Generate and upload artifacts"
+        echo "- Update production environment"
+
+# =============================================================================
+# CCWF Best Practices Checklist for CI/CD
+# =============================================================================
+#
+# ✅ Infrastructure Issues (Phase 1)
+# - [x] Testing framework configured in CI
+# - [x] Code quality checks (linting, formatting)
+# - [x] Security scanning for dependencies
+# - [x] Build verification
+# - [ ] Performance benchmarking (optional)
+# 
+# ✅ Testing Strategy
+# - [x] Unit tests with good coverage (80%+)
+# - [x] Integration tests for critical paths
+# - [x] E2E tests for key user journeys
+# - [x] Database migration testing
+# 
+# ✅ Code Quality
+# - [x] Automated linting and formatting
+# - [x] Type checking (if applicable)
+# - [x] Security vulnerability scanning
+# - [x] Code review requirements via branch protection
+# 
+# ✅ Deployment
+# - [x] Automated deployment from main branch
+# - [x] Environment-specific configurations
+# - [x] Rollback strategy
+# - [x] Health checks after deployment
